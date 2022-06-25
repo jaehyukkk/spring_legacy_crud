@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan
+            base-package="org.example.mvc.repository" /> <!-- repository관련 클래스 등록 패키지 -->
+
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource"> <!-- mysql 연동을 위한 dataSource bean 등록 -->
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/mvc?serverTimezone=UTC"></property> <!-- mvc는 위에서 생성한 database이름 -->
+        <property name="username" value="root"></property>
+        <property name="password" value="523108zz"></property>
+    </bean>
+
+    <bean id="sqlSessionFactory"
+          class="org.mybatis.spring.SqlSessionFactoryBean"> <!-- mybatis 사용을 위한 sessionFactory bean 등록 -->
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:mybatis-config.xml" /> <!-- mybatis 설정파일 등록 -->
+        <property name="mapperLocations" value="classpath:/mapper/*.xml"/>
+    </bean>
+
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"> <!-- mybatis 사용을 위한 sqlSession bean 등록 -->
+        <constructor-arg index="0" ref="sqlSessionFactory" />
+    </bean>
+
+</beans>
