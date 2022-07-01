@@ -26,6 +26,10 @@ public class BoardService {
         return boardDao.getBoard(seq);
     }
 
+    public BoardDto getBoardByCommentList(int seq) {
+        return boardDao.getBoardByCommentList(seq);
+    }
+
     public void deleteBoard(int seq) {
         boardDao.deleteBoard(seq);
     }

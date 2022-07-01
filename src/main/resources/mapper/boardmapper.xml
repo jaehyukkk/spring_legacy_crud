@@ -27,4 +27,19 @@
         where seq=#{seq}
     </update>
 
+    <resultMap id="boardResult" type="board">
+        <result property="seq" column="seq"/>
+        <result property="title" column="title"/>
+        <result property="description" column="description"/>
+        <collection property="comments" column="seq" javaType="java.util.ArrayList" ofType="comment" select ="getCommentListById" />
+    </resultMap>
+
+    <select id="getBoardById" resultMap="boardResult">
+        select * from board where seq = #{seq}
+    </select>
+
+    <select id="getCommentListById" resultType="comment">
+        select * from comment where board_seq = #{seq}
+    </select>
+
 </mapper>

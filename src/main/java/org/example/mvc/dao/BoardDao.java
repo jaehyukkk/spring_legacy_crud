@@ -24,6 +24,11 @@ public class BoardDao {
         return sqlSession.selectList("Board.getBoardList");
     }
 
+    public BoardDto getBoardByCommentList(int seq) {
+        return sqlSession.selectOne("Board.getBoardById", seq);
+    }
+
+
     public BoardDto getBoard(int seq) {
         return sqlSession.selectOne("Board.getBoard", seq);
     }

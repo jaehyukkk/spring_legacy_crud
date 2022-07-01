@@ -45,7 +45,15 @@
         text-decoration: none;
         color: white;
     }
+    .comment{
+        margin-top:20px;
+    }
+    .comment textarea{
+        border:1px solid #dadada;
+        width: 100%;
+    }
 </style>
+
   <article class="board-detail">
       <div>
           <h2>BOARD DETAIL</h2>
@@ -55,6 +63,21 @@
           <div class="detail-btns">
               <button class="btn btn-primary"><a href="/board/${board.seq}/update">수정</a></button>
               <button class="btn btn-danger" id="board-delete" data-seq = ${board.seq}>삭제</button>
+          </div>
+
+        <c:forEach items="${board.comments}" var="comment">
+            <div>${comment.comment_description}</div>
+        </c:forEach>
+
+        <div class="comment">
+              <p>COMMENT</p>
+              <form action="/comment/create" method="post">
+                  <textarea name="comment_description"></textarea>
+                  <input type="hidden" name="board_seq" value="${board.seq}"/>
+                  <div class="detail-btns">
+                      <button class="btn btn-primary">등록</button>
+                  </div>
+              </form>
           </div>
 
       </div>

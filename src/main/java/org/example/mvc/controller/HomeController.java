@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class HomeController {
 
@@ -41,7 +43,8 @@ public class HomeController {
 
     @RequestMapping(value = "board/{seq}/detail", method = RequestMethod.GET)
     public String boardDetail(@PathVariable("seq") int seq, Model model) {
-        model.addAttribute("board", boardService.getBoard(seq));
+        model.addAttribute("board", boardService.getBoardByCommentList(seq));
+//        System.out.println(boardService.getBoardByCommentList(seq).toString());
         return "board/detail";
     }
 
