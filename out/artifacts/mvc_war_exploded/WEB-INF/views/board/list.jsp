@@ -20,6 +20,9 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
 
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+
 <style>
 .list-table{
     width: 1000px;
@@ -57,6 +60,36 @@
             </table>
         </div>
 
+        <form id="actionForm" action ="/board" method="get">
+            <input type="hidden" name="pageNum" value="${pageMaker.criteria.pageNum}" />
+            <input type="hidden" name="amount" value="${pageMaker.criteria.amount}" />
+        </form>
+
+        <div class="pull-right">
+            <ul class="pagination">
+                <c:if test="${pageMaker.prev}">
+                    <li class="paginate_button previous">
+                        <a href="${pageMaker.startPage -1}">Previous</a>
+                    </li>
+                </c:if>
+
+                <c:forEach
+                    var="num"
+                    begin="${pageMaker.startPage}"
+                    end="${pageMaker.endPage}">
+                    <li class="paginate_button ${pageMaker.criteria.pageNum == num ? "active" :""}">
+                        <a href="${num }">${num }</a>
+                    </li>
+                </c:forEach>
+
+                <c:if test="${pageMaker.next}">
+                    <li class="paginate_button next">
+                        <a href="${pageMaker.endPage +1 }">Next</a>
+                    </li>
+                </c:if>
+            </ul>
+        </div>
+
         <div class="list-create-btn">
             <a href="<c:url value="/board/create"/>">
                 <button class="btn btn-primary">글쓰기</button>
@@ -66,5 +99,17 @@
     </div>
 </article>
 
+<script>
+    $(document).ready(function () {
+        let actionForm = $("#actionForm");
+
+        $(".paginate_button a").on("click", function (e) {
+            e.preventDefault();
+            console.log("click");
+            actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+            actionForm.submit();
+        });
+    });
+</script>
 </body>
 </html>

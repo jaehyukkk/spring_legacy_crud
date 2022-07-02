@@ -1,13 +1,17 @@
 package org.example.mvc.controller;
 
 import org.example.mvc.dto.BoardDto;
+import org.example.mvc.dto.Criteria;
+import org.example.mvc.dto.PageDto;
 import org.example.mvc.service.BoardService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -25,15 +29,17 @@ public class HomeController {
     }
 
     @RequestMapping("/board")
-    public String getBoardList(Model model) {
-        model.addAttribute("list", boardService.getBoardList());
+    public String getBoardList(Criteria criteria, Model model) {
+        int totalRecord = boardService.getBoardTotalRecord();
+        model.addAttribute("list", boardService.getListWithPaging(criteria));
+        model.addAttribute("pageMaker", new PageDto(criteria, totalRecord));
         return "board/list";
     }
 
     @RequestMapping(value = "/board/store", method = RequestMethod.POST)
-    public String boardInsert(BoardDto boardDto) {
+    public String boardInsert(@Valid BoardDto boardDto) {
         boardService.insertBoard(boardDto);
-        return "redirect:/";
+        return "redirect:/board";
     }
 
     @RequestMapping(value = "board/create", method = RequestMethod.GET)
@@ -44,7 +50,6 @@ public class HomeController {
     @RequestMapping(value = "board/{seq}/detail", method = RequestMethod.GET)
     public String boardDetail(@PathVariable("seq") int seq, Model model) {
         model.addAttribute("board", boardService.getBoardByCommentList(seq));
-//        System.out.println(boardService.getBoardByCommentList(seq).toString());
         return "board/detail";
     }
 

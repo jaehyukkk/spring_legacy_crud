@@ -27,6 +27,23 @@
         where seq=#{seq}
     </update>
 
+    <select id="totalRecord" resultType="java.lang.Integer">
+        select count(*) from board
+    </select>
+
+    <select id="getListWithPaging" resultType="board">
+        <![CDATA[
+           select seq, title, description
+            from(
+                select @ROWNUM := @ROWNUM + 1 as rnum, seq, title, description
+                from board, (select @ROWNUM :=0) A
+                order by seq desc
+                ) result
+            where rnum > (#{pageNum} - 1) * #{amount}
+            limit #{amount}
+        ]]>
+    </select>
+
     <resultMap id="boardResult" type="board">
         <result property="seq" column="seq"/>
         <result property="title" column="title"/>

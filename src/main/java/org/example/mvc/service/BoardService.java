@@ -2,6 +2,7 @@ package org.example.mvc.service;
 
 import org.example.mvc.dao.BoardDao;
 import org.example.mvc.dto.BoardDto;
+import org.example.mvc.dto.Criteria;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,14 @@ public class BoardService {
 
     public BoardDto getBoard(int seq) {
         return boardDao.getBoard(seq);
+    }
+
+    public List<BoardDto> getListWithPaging(Criteria criteria) {
+        return boardDao.getListWithPaging(criteria);
+    }
+
+    public int getBoardTotalRecord() {
+        return boardDao.boardTotalRecord();
     }
 
     public BoardDto getBoardByCommentList(int seq) {

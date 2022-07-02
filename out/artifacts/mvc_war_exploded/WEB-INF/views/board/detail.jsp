@@ -72,9 +72,9 @@
         <div class="comment">
               <p>COMMENT</p>
               <form action="/comment/create" method="post">
-                  <textarea name="comment_description"></textarea>
+                  <textarea name="comment_description" class="comment_description"></textarea>
                   <input type="hidden" name="board_seq" value="${board.seq}"/>
-                  <div class="detail-btns">
+                  <div class="detail-btns" id="comment-btn">
                       <button class="btn btn-primary">등록</button>
                   </div>
               </form>
@@ -84,6 +84,14 @@
   </article>
 
 <script>
+    $(function () {
+        $('#comment-btn button').on("click", function (e) {
+            if ($('.comment_description').val().length == 0) {
+                e.preventDefault();
+                alert("댓글을 입력해주세요.");
+            }
+        });
+    });
 
     $("#board-delete").on("click",function(){
         let result = confirm("정말 삭제하시겠습니까?");

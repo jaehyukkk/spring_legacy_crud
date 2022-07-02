@@ -2,9 +2,11 @@ package org.example.mvc.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.example.mvc.dto.BoardDto;
+import org.example.mvc.dto.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -22,6 +24,14 @@ public class BoardDao {
 
     public List<BoardDto> getBoardList() {
         return sqlSession.selectList("Board.getBoardList");
+    }
+
+    public List<BoardDto> getListWithPaging(Criteria criteria) {
+        return sqlSession.selectList("Board.getListWithPaging", criteria);
+    }
+
+    public int boardTotalRecord() {
+        return sqlSession.selectOne("Board.totalRecord");
     }
 
     public BoardDto getBoardByCommentList(int seq) {
