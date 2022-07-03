@@ -34,4 +34,8 @@ public class FileService {
 
         return fileDao.insertFile(fileDto);
     }
+
+    public FileDto selectFile(int fileSeq) {
+        return fileDao.selectFile(fileSeq);
+    }
 }

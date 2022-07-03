@@ -11,4 +11,8 @@
         values (#{originalFilename}, #{filename}, #{boardSeq}, #{filePath})
     </insert>
 
+    <select id="selectFile" resultType="file">
+        select * from file where file_seq = #{fileSeq}
+    </select>
+
 </mapper>

@@ -81,8 +81,9 @@
           </div>
 
           <div>
+              <p>첨부 이미지</p>
               <c:forEach items="${board.files}" var="files">
-                  <div>파일 : ${files.filename}</div>
+                  <img src="/board/img/${files.fileSeq}"/>
               </c:forEach>
           </div>
 
