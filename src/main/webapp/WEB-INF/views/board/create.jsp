@@ -34,11 +34,14 @@
 </style>
 <div class="board-create-form">
     <h2>BOARD CREATE</h2>
-    <form action="<c:url value="/board/store" />" method="post">
+    <form action="<c:url value="/board/store" />" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="title">title</label>
             <input type="text" class="form-control" id="title" name="title" placeholder="제목을 작성해주세요.">
         </div>
+
+        <input type="file" name="file" multiple />
+        <br />
 
         <div class="form-group">
             <label for="writer">writer</label>

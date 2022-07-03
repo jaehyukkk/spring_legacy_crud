@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Board">
-    <insert id="insertBoard">
+    <insert id="insertBoard" parameterType="board" useGeneratedKeys="true" keyProperty="seq">
         insert
         into board(title, description, writer)
         values (#{title}, #{description}, #{writer})
@@ -49,6 +49,7 @@
         <result property="title" column="title"/>
         <result property="description" column="description"/>
         <collection property="comments" column="seq" javaType="java.util.ArrayList" ofType="comment" select ="getCommentListById" />
+        <collection property="files" column="seq" javaType="java.util.ArrayList" ofType="file" select="getFileListById" />
     </resultMap>
 
     <select id="getBoardById" resultMap="boardResult">
@@ -57,6 +58,10 @@
 
     <select id="getCommentListById" resultType="comment">
         select * from comment where board_seq = #{seq}
+    </select>
+
+    <select id="getFileListById" resultType="file">
+        select * from file where board_seq = #{seq}
     </select>
 
 </mapper>

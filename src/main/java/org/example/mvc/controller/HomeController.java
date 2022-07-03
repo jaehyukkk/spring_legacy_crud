@@ -4,23 +4,28 @@ import org.example.mvc.dto.BoardDto;
 import org.example.mvc.dto.Criteria;
 import org.example.mvc.dto.PageDto;
 import org.example.mvc.service.BoardService;
+import org.example.mvc.service.FileService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
 public class HomeController {
 
    private final BoardService boardService;
+   private final FileService fileService;
 
-    public HomeController(BoardService boardService) {
+    public HomeController(BoardService boardService, FileService fileService) {
         this.boardService = boardService;
+        this.fileService = fileService;
     }
 
     @RequestMapping("/")
@@ -37,8 +42,9 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/board/store", method = RequestMethod.POST)
-    public String boardInsert(@Valid BoardDto boardDto) {
-        boardService.insertBoard(boardDto);
+    public String boardInsert(@Valid BoardDto boardDto, @RequestParam MultipartFile file) throws IOException {
+        int boardSeq = boardService.insertBoard(boardDto,file);
+//        fileService.insertFile(file, boardSeq);
         return "redirect:/board";
     }
 

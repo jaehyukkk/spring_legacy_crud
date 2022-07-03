@@ -80,6 +80,12 @@
               </form>
           </div>
 
+          <div>
+              <c:forEach items="${board.files}" var="files">
+                  <div>파일 : ${files.filename}</div>
+              </c:forEach>
+          </div>
+
       </div>
   </article>
 

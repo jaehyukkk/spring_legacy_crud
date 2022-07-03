@@ -19,7 +19,8 @@ public class BoardDao {
     }
 
     public int insertBoard(BoardDto boardDto) {
-        return sqlSession.insert("Board.insertBoard", boardDto);
+        sqlSession.insert("Board.insertBoard", boardDto);
+        return boardDto.getSeq();
     }
 
     public List<BoardDto> getBoardList() {

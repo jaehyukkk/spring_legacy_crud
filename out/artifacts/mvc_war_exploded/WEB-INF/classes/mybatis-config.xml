@@ -3,8 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
     <typeAliases>
         <typeAlias type="org.example.mvc.dto.BoardDto" alias="board"/>
         <typeAlias type="org.example.mvc.dto.CommentDto" alias="comment"/>
+        <typeAlias type="org.example.mvc.dto.FileDto" alias="file"/>
     </typeAliases>
+
 </configuration>

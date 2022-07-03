@@ -15,10 +15,9 @@ import java.util.List;
 public class BoardDto {
 
     private int seq;
-    @NotBlank
     private String title;
-    @NotBlank
     private String description;
     private String writer;
     private List<CommentDto> comments;
+    private List<FileDto> files;
 }
