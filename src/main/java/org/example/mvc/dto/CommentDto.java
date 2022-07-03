@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class CommentDto {
 
-    private int comment_seq;
-    private String comment_description;
-    private int board_seq;
+    private int commentSeq;
+    private String commentDescription;
+    private int boardSeq;
 }

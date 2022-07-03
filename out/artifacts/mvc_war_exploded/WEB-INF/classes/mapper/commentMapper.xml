@@ -8,7 +8,7 @@
     <insert id="insertComment">
         insert
         into comment(comment_description, board_seq)
-        values (#{comment_description}, #{board_seq})
+        values (#{commentDescription}, #{boardSeq})
     </insert>
 
 </mapper>

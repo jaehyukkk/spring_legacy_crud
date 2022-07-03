@@ -66,14 +66,14 @@
           </div>
 
         <c:forEach items="${board.comments}" var="comment">
-            <div>${comment.comment_description}</div>
+            <div>${comment.commentDescription}</div>
         </c:forEach>
 
         <div class="comment">
               <p>COMMENT</p>
               <form action="/comment/create" method="post">
-                  <textarea name="comment_description" class="comment_description"></textarea>
-                  <input type="hidden" name="board_seq" value="${board.seq}"/>
+                  <textarea name="commentDescription" class="comment_description"></textarea>
+                  <input type="hidden" name="boardSeq" value="${board.seq}"/>
                   <div class="detail-btns" id="comment-btn">
                       <button class="btn btn-primary">등록</button>
                   </div>

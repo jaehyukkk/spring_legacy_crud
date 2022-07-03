@@ -17,7 +17,7 @@ public class CommentController {
 
     @RequestMapping(value = "/comment/create", method = RequestMethod.POST)
     public String commentCreate(CommentDto commentDto) {
-        int boardId = commentDto.getBoard_seq();
+        int boardId = commentDto.getBoardSeq();
         commentService.insertComment(commentDto);
         return "redirect:/board/" + boardId + "/detail";
     }
