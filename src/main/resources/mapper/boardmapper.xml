@@ -43,25 +43,40 @@
             limit #{amount}
         ]]>
     </select>
+    
+    <resultMap id="fileDto" type="file">
+        <result property="fileSeq" column="file_seq" />
+        <result property="filename" column="filename" />
+        <result property="originalFilename" column="original_filename" />
+        <result property="filePath" column="file_path" />
+    </resultMap>
+
+    <resultMap id="commentDto" type="comment">
+        <result property="commentSeq" column="comment_seq" />
+        <result property="commentDescription" column="comment_description" />
+        <result property="test" column="c_test" />
+    </resultMap>
 
     <resultMap id="boardResult" type="board">
         <result property="seq" column="seq"/>
         <result property="title" column="title"/>
         <result property="description" column="description"/>
-        <collection property="comments" column="seq" javaType="java.util.ArrayList" ofType="comment" select ="getCommentListById" />
-        <collection property="files" column="seq" javaType="java.util.ArrayList" ofType="file" select="getFileListById" />
+        <result property="test" column="b_test" />
+        <collection property="comments" resultMap="commentDto" />
+        <collection property="files" resultMap="fileDto"/>
     </resultMap>
 
     <select id="getBoardById" resultMap="boardResult">
-        select * from board where seq = #{seq}
+        select *,
+               b.test as b_test,
+               c.test as c_test
+        from board b
+        left join comment c 
+        on b.seq = c.board_seq
+        left join file f 
+        on b.seq = f.board_seq
+        where b.seq = #{seq}
     </select>
 
-    <select id="getCommentListById" resultType="comment">
-        select * from comment where board_seq = #{seq}
-    </select>
-
-    <select id="getFileListById" resultType="file">
-        select * from file where board_seq = #{seq}
-    </select>
 
 </mapper>

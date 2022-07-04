@@ -10,4 +10,6 @@ public class CommentDto {
     private int commentSeq;
     private String commentDescription;
     private int boardSeq;
+
+    private String test;
 }

@@ -20,4 +20,6 @@ public class BoardDto {
     private String writer;
     private List<CommentDto> comments;
     private List<FileDto> files;
+
+    private String test;
 }

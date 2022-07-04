@@ -81,6 +81,10 @@
           </div>
 
           <div>
+              <p>Comment Test : ${board.comments[0].test}</p>
+              <p>Board Test : ${board.test}</p>
+          </div>
+          <div>
               <p>첨부 이미지</p>
               <c:forEach items="${board.files}" var="files">
                   <img src="/board/img/${files.fileSeq}"/>
